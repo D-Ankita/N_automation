@@ -1,0 +1,37 @@
+name: Daily Automation
+
+on:
+  schedule:
+    - cron: "0 10 * * *"
+
+jobs:
+  run-automation:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Chrome and ChromeDriver
+      run: |
+        # Download and install Chrome browser
+        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        sudo apt install ./google-chrome-stable_current_amd64.deb
+
+        # Download and install ChromeDriver
+        wget https://chromedriver.storage.googleapis.com/LATEST_RELEASE
+        CHROME_DRIVER_VERSION=$(cat LATEST_RELEASE)
+        wget https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip
+        unzip chromedriver_linux64.zip
+        sudo mv chromedriver /usr/local/bin/
+        sudo chmod +x /usr/local/bin/chromedriver
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+
+    - name: Build and run automation script
+      run: |
+        javac Automation.java
+        java Automation
