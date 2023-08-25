@@ -2,7 +2,7 @@ name: Daily Automation
 
 on:
   schedule:
-    - cron: "0 10 * * *"
+    - cron: "30 9 * * *"
 
 jobs:
   run-automation:
