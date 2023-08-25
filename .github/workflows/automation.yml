@@ -3,6 +3,9 @@ name: Daily Automation
 on:
   schedule:
     - cron: "30 9 * * *"
+  push:
+    branches:
+      - Test
 
 jobs:
   run-automation:
