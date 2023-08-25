@@ -14,6 +14,8 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+      with:
+          distribution: '<distribution>'
 
     - name: Set up Chrome and ChromeDriver
       run: |
